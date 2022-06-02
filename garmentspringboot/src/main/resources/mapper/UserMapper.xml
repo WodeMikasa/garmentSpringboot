@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ccsu.mapper.UserMapper">
+    <update id="updateUser">
+    update sys_user
+    <set>
+        <if test="username != null">
+            username = #{username},
+        </if>
+        <!--            <if test="password != null">-->
+        <!--                password = #{password}-->
+        <!--            </if>-->
+        <if test="nickname != null">
+            nickname = #{nickname},
+        </if>
+
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="address != null">
+            address = #{address}
+        </if>
+        <if test="updateTime !=null">
+            update_time = #{updateTime}
+        </if>
+    </set>
+    <where>
+        id = #{id}
+    </where>
+    </update>
+    <select id="getById" resultType="cn.ccsu.entity.User">
+        select * from sys_user where id=#{useId} and isDelete='1'
+    </select>
+    <select id="selectByName" resultType="cn.ccsu.entity.User">
+        select * from sys_user where username=#{username}
+    </select>
+
+
+</mapper>

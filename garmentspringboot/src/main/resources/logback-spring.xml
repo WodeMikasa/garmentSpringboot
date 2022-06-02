@@ -1,0 +1,17 @@
+<configuration>
+    <springProperty scope="context" name="dateformat" source="logging.pattern.dateformat" defaultValue="-yyyy-MM-dd HH:mm:ss.SSS"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <springProfile name="dev">
+                <pattern>%d{${dateformat}} [%thread] %logger{100} - %msg%n</pattern>
+            </springProfile>
+            <springProfile name="!dev">
+                <pattern>%d{${dateformat}} [%thread] %logger{100} - %msg%n</pattern>
+            </springProfile>
+        </encoder>
+    </appender>
+    <logger name="cn.ccsu" level="TRACE"></logger>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
