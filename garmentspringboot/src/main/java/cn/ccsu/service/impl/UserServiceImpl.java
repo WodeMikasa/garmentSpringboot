@@ -1,10 +1,13 @@
 package cn.ccsu.service.impl;
 
 import cn.ccsu.entity.LoginUser;
+import cn.ccsu.entity.Role;
 import cn.ccsu.entity.User;
 import cn.ccsu.enums.AppHttpCodeEnum;
 import cn.ccsu.ex.SystemException;
+import cn.ccsu.mapper.RoleMapper;
 import cn.ccsu.mapper.UserMapper;
+import cn.ccsu.mapper.UserRoleLinkMapper;
 import cn.ccsu.service.UserService;
 import cn.ccsu.utils.JwtUtil;
 import cn.ccsu.utils.RedisCache;
@@ -21,12 +24,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRoleLinkMapper userRoleLinkMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -84,8 +93,8 @@ public class UserServiceImpl implements UserService {
 
         //把token和userinfo封装 返回
         //把User转换成UserInfoVo
-        //UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
-        // userInfoVo.setRole(userMapper.selectRoleById(Integer.parseInt(userId)));
+//        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+//         userInfoVo.setRole(userMapper.selectRoleById(Integer.parseInt(userId)));
         UserLoginInfoVo vo = new UserLoginInfoVo(jwt);
         return ResponseResult.okResult(vo);
     }
@@ -108,8 +117,16 @@ public class UserServiceImpl implements UserService {
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         //获取userid
         Integer userId = loginUser.getUser().getId();
+        List<Integer> integers = userRoleLinkMapper.selectByUserId(userId);
+        List<Role> list=new ArrayList<>();
+        for (Integer roleId:integers){
+            Role role = roleMapper.selectById(roleId);
+            list.add(role);
+
+        }
         User user=userMapper.getById(userId);
         UserInfo userInfo=new UserInfo(user.getUsername());
+        userInfo.setRoles(list);
         userInfo.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         return ResponseResult.okResult(userInfo);
     }

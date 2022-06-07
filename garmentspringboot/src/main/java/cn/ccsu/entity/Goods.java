@@ -12,11 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class Goods implements Serializable {
     private Integer id;
-    private String goodsName;
-    private String goodsCount;
-    private Double size;
+    private String name;
+    private Integer count;
+    private String size;
     private String color;
-    private String goodsNumber;
+    private String number;
     private Date createTime;
     private Date updateTime;
     private Integer isDelete;

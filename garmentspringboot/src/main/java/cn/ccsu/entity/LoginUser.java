@@ -1,16 +1,21 @@
 package cn.ccsu.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.net.ssl.SSLSession;
 import java.util.Collection;
-
+import java.util.List;
+import java.util.stream.Collectors;
+@NoArgsConstructor
 public class LoginUser implements UserDetails {
     private User user;
-
-    public LoginUser() {
-    }
+//
+//    public LoginUser() {
+//    }
 
     public LoginUser(User user) {
         this.user = user;
@@ -20,10 +25,44 @@ public class LoginUser implements UserDetails {
         this.user = user;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    private List<String> permissions;
+
+    public LoginUser(User user, List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
     }
+
+    //存储SpringSecurity所需要的权限信息的集合
+    @JSONField(serialize = false)
+    private List<GrantedAuthority> authorities;
+
+    @Override
+    public  Collection<? extends GrantedAuthority> getAuthorities() {
+        if(authorities!=null){
+            return authorities;
+        }
+        //把permissions中字符串类型的权限信息转换成GrantedAuthority对象存入authorities中
+        authorities = permissions.stream().
+                map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return authorities;
+    }
+
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
+    }
+
+
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+
+
 
     @Override
     public String getPassword() {

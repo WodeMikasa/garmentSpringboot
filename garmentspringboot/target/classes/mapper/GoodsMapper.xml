@@ -22,13 +22,13 @@
         update sys_goods
         <set>
             <if test="goodsName != null">
-                goodsname = #{goodsName},
+                name = #{goodsName},
             </if>
             <!--            <if test="password != null">-->
             <!--                password = #{password}-->
             <!--            </if>-->
             <if test="goodsCount != null">
-                goodscount = #{goodsCount},
+                count = #{goodsCount},
             </if>
 
             <if test="size != null">
@@ -38,7 +38,7 @@
                 color = #{color}
             </if>
             <if test="goodsNumber !=null">
-                goodsnumber = #{goodsNumber}
+                number = #{goodsNumber}
             </if>
             <if test="updateTime !=null">
                 update_time = #{updateTime}

@@ -6,6 +6,7 @@ import cn.ccsu.service.GoodsService;
 import cn.ccsu.utils.ResponseResult;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('superadmin:power')")
     public ResponseResult delete(@PathVariable Integer id){
         return goodsService.deleteById(id);
     }
@@ -28,6 +30,7 @@ public class GoodsController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('admin:power')")
     public ResponseResult addGoods(@RequestBody Goods goods){
         return goodsService.addGoods(goods);
     }

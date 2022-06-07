@@ -13,11 +13,16 @@ public interface GoodsMapper {
     @Select("select * from sys_goods where isDelete='1'")
     List<Goods> findAll();
 
-    @Insert("insert into sys_goods(goodsname,goodscount,size,color,goodsnumber,create_time,isDelete) values (#{goodsName},#{goodsCount},#{size},#{color},#{goodsNumber},#{createTime},#{isDelete})")
+    @Insert("insert into sys_goods(name,count,size,color,number,create_time,isDelete) values (#{goodsName},#{goodsCount},#{size},#{color},#{goodsNumber},#{createTime},#{isDelete})")
     Integer insertGoods(Goods goods);
 
-    @Select("SELECT * FROM sys_goods where goodsname LIKE concat('%', #{goodsName}, '%')  AND color LIKE concat('%', #{color}, '%')")
-    List<Goods> selectBy(@Param("goodsName") String goodsName,@Param("color") String color);
+    @Select("SELECT * FROM sys_goods where name LIKE concat('%', #{goodsName}, '%')  AND number LIKE concat('%', #{number}, '%')")
+    List<Goods> selectBy(@Param("goodsName") String name,@Param("number") String number);
+
+    @Select("select * from sys_goods where id=#{id}")
+    Goods selectById(@Param("id") Integer id);
+    @Update("update sys_goods set count=#{count} where id=#{id}")
+    Integer updateCount(@Param("id") Integer id,@Param("count") Integer count);
 
 
     Integer updateGoods(Goods goods);

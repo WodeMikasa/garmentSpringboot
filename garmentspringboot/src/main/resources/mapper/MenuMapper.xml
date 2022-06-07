@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ccsu.mapper.MenuMapper">
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        SELECT
+            DISTINCT m.`perms`
+        FROM
+            sys_user_role ur
+                LEFT JOIN `sys_role` r ON ur.`roleId` = r.`id`
+                LEFT JOIN `sys_role_menu` rm ON ur.`roleId` = rm.`roleId`
+                LEFT JOIN `sys_menu` m ON m.`id` = rm.`menuId`
+        WHERE
+            userId = #{id}
+          AND r.`status` = 1
+          AND m.`status` = 1
+          AND r.isDelete = 1
+          AND m.isDelete = 1
+
+    </select>
+</mapper>
