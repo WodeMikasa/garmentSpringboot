@@ -16,8 +16,8 @@ public interface GoodsMapper {
     @Insert("insert into sys_goods(goodsname,goodscount,size,color,goodsnumber,create_time,isDelete) values (#{goodsName},#{goodsCount},#{size},#{color},#{goodsNumber},#{createTime},#{isDelete})")
     Integer insertGoods(Goods goods);
 
-    @Select("SELECT * FROM sys_goods where goodsname LIKE concat('%', #{goodsName}, '%')  AND color LIKE concat('%', #{color}, '%')")
-    List<Goods> selectBy(@Param("goodsName") String goodsName,@Param("color") String color);
+    @Select("SELECT * FROM sys_goods where goodsname LIKE concat('%', #{name}, '%')  AND color LIKE concat('%', #{number}, '%')")
+    List<Goods> selectBy(@Param("name") String name,@Param("number") String number);
 
 
     Integer updateGoods(Goods goods);
