@@ -4,4 +4,30 @@
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into sys_outstore(number,storage,agent,towhere,outTime,remark ,create_time,update_time,isDelete) values (#{number},#{storage},#{agent},#{towhere},#{outTime},#{remark},#{createTime},#{updateTime},#{isDelete})
     </insert>
+    <update id="update">
+        update sys_outstore
+        <set>
+            <if test="storage != null">
+                storage = #{storage},
+            </if>
+
+            <if test="agent != null">
+                agent = #{agent},
+            </if>
+
+            <if test="towhere != null">
+                towhere = #{towhere},
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
+            </if>
+
+            <if test="updateTime !=null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
 </mapper>

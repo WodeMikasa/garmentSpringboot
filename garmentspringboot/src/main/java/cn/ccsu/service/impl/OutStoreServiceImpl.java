@@ -12,6 +12,8 @@ import cn.ccsu.mapper.OutStoreLinkMapper;
 import cn.ccsu.mapper.OutStoreMapper;
 import cn.ccsu.service.OutStoreService;
 import cn.ccsu.utils.ResponseResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,6 +87,34 @@ public class OutStoreServiceImpl implements OutStoreService {
         return ResponseResult.okResult();
     }
 
+    @Override
+    public ResponseResult queryAll(Integer pageNum, Integer pageSize, String number, String storage) {
+        PageHelper.startPage(pageNum, pageSize);
+        //2.紧跟分页设置的后的第一个select查询会被分页查询
+        List<OutStore> all = outStoreMapper.query(number,storage);
+        //3.PageInfo参数navigatepage（导航页，显示的页码）：默认显示5个连续页,页码导航连续显示的页数5
+        PageInfo<OutStore> pageInfo = new PageInfo<>(all, 5);
+        return ResponseResult.okResult(pageInfo);
+    }
+
+    @Override
+    public ResponseResult delete(Integer id) {
+        Integer delete = outStoreMapper.delete(id);
+        if (delete!=1){
+            throw new SystemException(AppHttpCodeEnum.SYSTEM_ERROR);
+        }
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult update(OutStore outStore) {
+        outStore.setUpdateTime(new Date());
+        Integer update = outStoreMapper.update(outStore);
+        if (update!=1){
+            throw new SystemException(AppHttpCodeEnum.SYSTEM_ERROR);
+        }
+        return ResponseResult.okResult();
+    }
 
 
 }

@@ -12,4 +12,6 @@ public interface OutStoreDetailMapper {
     Integer insert(OutStoreDetail outStoreDetail);
     @Select("select * from sys_outstoredetail where id=#{id}")
     OutStoreDetail selectById(@Param("id") Integer id);
+
+
 }
