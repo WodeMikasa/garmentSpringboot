@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.ccsu.mapper.OutStoreDetailMapper">
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into sys_outstoredetail(name,count ,size,color,goodsId,create_time,update_time) values (#{name},#{count},#{size},#{color},#{goodsId},#{createTime},#{updateTime})
+        insert into sys_outstoredetail(name,count ,size,color,goodsId,create_time,update_time) values (#{name},#{outCount},#{size},#{color},#{goodsId},#{createTime},#{updateTime})
     </insert>
 </mapper>

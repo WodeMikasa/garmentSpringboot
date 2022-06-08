@@ -13,7 +13,7 @@ import java.util.Date;
 public class OutStoreDetail {
     private Integer id;
     private String name;
-    private Integer count;
+    private Integer outCount;
     private String size;
     private String color;
     private Integer goodsId;

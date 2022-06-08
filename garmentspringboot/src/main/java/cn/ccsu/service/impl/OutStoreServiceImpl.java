@@ -64,7 +64,7 @@ public class OutStoreServiceImpl implements OutStoreService {
             if (insert!=1){
                 throw new SystemException(AppHttpCodeEnum.OUTSTORE_ERROR2);
             }
-            Integer count = outStoreDetail.getCount();
+            Integer count = outStoreDetail.getOutCount();
             if (count>goods.getCount()){
                 throw new SystemException(AppHttpCodeEnum.OUTSTORE_ERROR3);
 
