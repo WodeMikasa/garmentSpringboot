@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -114,6 +115,18 @@ public class OutStoreServiceImpl implements OutStoreService {
             throw new SystemException(AppHttpCodeEnum.SYSTEM_ERROR);
         }
         return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult getById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new SystemException(AppHttpCodeEnum.SYSTEM_ERROR);
+        }
+        OutStore outStore = outStoreMapper.selectById(id);
+        if (Objects.isNull(outStore)){
+            throw new SystemException(AppHttpCodeEnum.OUTSTORE_NULL);
+        }
+        return ResponseResult.okResult(outStore);
     }
 
 

@@ -15,4 +15,6 @@ public interface OutStoreMapper {
     Integer delete(@Param("id") Integer id);
 
     Integer update(OutStore outStore);
+    @Select("select * from sys_outstore where id=#{id} and isDelete='1'")
+    OutStore selectById(@Param("id") Integer id);
 }

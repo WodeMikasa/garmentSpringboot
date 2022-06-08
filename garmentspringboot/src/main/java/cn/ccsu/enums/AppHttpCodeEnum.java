@@ -17,6 +17,7 @@ public enum AppHttpCodeEnum {
     OUTSTORE_ERROR2(510,"出库明细新增失败"),
     OUTSTORE_ERROR3(511,"服装库存数不足"),
     OUTSTORE_ERROR4(512,"建立出库单与明细对应关系出错"),
+    OUTSTORE_NULL(513,"数据库对应数据不存在或已删除"),
     PASSWORD_ERROR2(508,"密码输入错误");
     int code;
     String msg;

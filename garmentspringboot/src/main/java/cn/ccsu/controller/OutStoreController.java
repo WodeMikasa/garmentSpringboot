@@ -35,5 +35,9 @@ public class OutStoreController {
         return outStoreService.update(outStore);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseResult get(@PathVariable Integer id){
+        return outStoreService.getById(id);
+    }
 
 }

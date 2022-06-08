@@ -11,4 +11,7 @@ public interface OutStoreService {
     ResponseResult delete(Integer id);
 
     ResponseResult update(OutStore outStore);
+
+
+    ResponseResult getById(Integer id);
 }
